@@ -2,6 +2,8 @@
 
 using Microsoft.AspNetCore.Mvc.Filters;
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
@@ -65,15 +67,14 @@ namespace AspNetCoreResult.Validators
 
             prop.SetValue(value, jwtValue);
         }
-        public object JwtValue(ClaimsPrincipal claim, PropertyInfo prop, string jwtKey)
+        public object GetValue(string typeName, string jwtValue)
         {
-            var jwtValue = claim.FindFirst(m => string.Equals(jwtKey, m.Type, System.StringComparison.OrdinalIgnoreCase)).Value;
-            if (string.IsNullOrEmpty(jwtValue)) return null;
-            switch (prop.PropertyType.Name.ToLower())
+            switch (typeName)
             {
                 case "string":
                     return jwtValue;
                 case "int64":
+
                     long a;
                     long.TryParse(jwtValue, out a);
                     if (a == 0)
@@ -83,6 +84,7 @@ namespace AspNetCoreResult.Validators
                     return a;
 
                 case "int32":
+
                     int b;
                     int.TryParse(jwtValue, out b);
                     if (b == 0)
@@ -91,13 +93,39 @@ namespace AspNetCoreResult.Validators
                     }
                     return b;
 
-                case "double": 
-                    
-                    break;
-                case "list`1": break;
+                case "double":
+                    double d;
+                    double.TryParse(jwtValue, out d);
+                    if (d == 0) { }
+                    return d;
+
                 default: return null;
             }
-            return null;
+        }
+        public object JwtValue(ClaimsPrincipal claim, PropertyInfo prop, string jwtKey)
+        {
+            var jwtValue = claim.FindFirst(m => string.Equals(jwtKey, m.Type, System.StringComparison.OrdinalIgnoreCase)).Value;
+            if (string.IsNullOrEmpty(jwtValue)) return null;
+            switch (prop.PropertyType.Name.ToLower())
+            {
+                case "list`1":
+                    var claims = claim.Claims.Where(m => m.Type == jwtKey).ToList();
+                    return SetClaimsToListProperty(claims, prop);
+
+                default:
+                    return GetValue(prop.PropertyType.Name.ToLower(), jwtValue);
+
+            }
+        }
+        public object SetClaimsToListProperty(List<Claim> claims, PropertyInfo prop)
+        {
+            var propType = prop.PropertyType.GenericTypeArguments[0].Name.ToLower();
+            var instance = (List<object>)Activator.CreateInstance(prop.PropertyType, new object[] { });
+            foreach (var claim in claims)
+            {
+                instance.Add(GetValue(propType, claim.Value));
+            }
+            return instance;
         }
 
     }
