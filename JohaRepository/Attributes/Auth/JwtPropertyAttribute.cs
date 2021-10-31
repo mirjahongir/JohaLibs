@@ -11,12 +11,12 @@ namespace JohaRepository.Attributes.Auth
         {
 
         }
-        public JwtPropertyAttribute(string jwtKey, bool isRequired= false)
+        public JwtPropertyAttribute(string jwtKey, bool isRequired = false)
         {
             JwtKey = jwtKey;
             IsRequired = isRequired;
         }
-        public  string JwtKey { get; set; }
+        public string JwtKey { get; set; }
         public bool IsRequired { get; set; }
     }
 }

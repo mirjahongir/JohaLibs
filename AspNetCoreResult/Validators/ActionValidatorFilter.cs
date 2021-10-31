@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Mvc.Filters;
 
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -25,6 +25,10 @@ namespace AspNetCoreResult.Validators
             }
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
         internal void ChackUserInfo(ActionExecutingContext context)
         {
             foreach (var arg in context.ActionArguments)
@@ -111,7 +115,6 @@ namespace AspNetCoreResult.Validators
                 case "list`1":
                     var claims = claim.Claims.Where(m => m.Type == jwtKey).ToList();
                     return SetClaimsToListProperty(claims, prop);
-
                 default:
                     return GetValue(prop.PropertyType.Name.ToLower(), jwtValue);
 
@@ -119,13 +122,24 @@ namespace AspNetCoreResult.Validators
         }
         public object SetClaimsToListProperty(List<Claim> claims, PropertyInfo prop)
         {
+
             var propType = prop.PropertyType.GenericTypeArguments[0].Name.ToLower();
-            var instance = (List<object>)Activator.CreateInstance(prop.PropertyType, new object[] { });
+            var instance = new ArrayList();
+
             foreach (var claim in claims)
             {
                 instance.Add(GetValue(propType, claim.Value));
             }
-            return instance;
+            switch (propType)
+            {
+                case "string":
+                    return instance.Cast<string>();
+                case "int32":
+                    return instance.Cast<int>();
+                case "int64": return instance.Cast<long>();
+                case "double": return instance.Cast<double>();
+                default: return null;
+            }
         }
 
     }
