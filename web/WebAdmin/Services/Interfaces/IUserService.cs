@@ -1,7 +1,7 @@
-﻿using WebAdmin.ViewModels.Account;
+﻿using WebAdmin.Models.Account;
 using WebAdmin.Models.Configs;
-using WebAdmin.Models.Account;
 using WebAdmin.Models.Projects;
+using WebAdmin.ViewModels.Account;
 
 namespace WebAdmin.Services.Interfaces
 {

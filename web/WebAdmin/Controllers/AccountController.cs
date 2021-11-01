@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
 using System;
-
 using WebAdmin.Services.Interfaces;
-
 using WebAdmin.ViewModels.Account;
 namespace WebAdmin.Controllers
 {
+    [Route("/apimate/[controller]/[action]")]
     public class AccountController : Controller
     {
         IUserService _user;

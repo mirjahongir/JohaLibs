@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebAdmin.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAdmin.Models.Projects;
-using WebAdmin.ViewModels.QueryModels;
-using Microsoft.AspNetCore.Authorization;
+using WebAdmin.Services.Interfaces;
 using WebAdmin.ViewModels.Project;
+using WebAdmin.ViewModels.QueryModels;
 namespace WebAdmin.Controllers
 {
     [Authorize]
+    [Route("/apimate/[controller]/[action]")]
     public class ProjectController : Controller
     {
         private readonly ILogger<ProjectController> _logger;
@@ -35,7 +36,7 @@ namespace WebAdmin.Controllers
             _user.AddProjectUser(project);
             return result;
         }
-        
+
         public async Task<ProjectResult> Put([FromBody] Project project)
         {
             return await _project.UpdateProject(project);

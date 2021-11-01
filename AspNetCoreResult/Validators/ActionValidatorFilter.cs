@@ -1,7 +1,5 @@
 ﻿using JohaRepository.Attributes.Auth;
-
 using Microsoft.AspNetCore.Mvc.Filters;
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +20,7 @@ namespace AspNetCoreResult.Validators
             if (context.ModelState.IsValid)
             {
                 await next();
+                return;
             }
 
         }

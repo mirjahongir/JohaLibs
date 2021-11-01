@@ -1,6 +1,5 @@
 ﻿using JohaRepository.Exception;
 using JohaRepository.Models.ErrorModels;
-
 using System;
 
 namespace AspNetCoreResult.ResponseCoreResult

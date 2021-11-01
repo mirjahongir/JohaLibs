@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-using System.Diagnostics;
 namespace WebAdmin.Controllers
 {
-
+    [Route("/apimate/[controller]/[action]")]
     public class HomeController : Controller
     {
 

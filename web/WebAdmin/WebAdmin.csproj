@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\JohaRepository\JohaRepository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="front\src\components\" />
+  </ItemGroup>
+
 </Project>

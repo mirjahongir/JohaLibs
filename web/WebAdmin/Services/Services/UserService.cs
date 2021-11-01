@@ -1,69 +1,16 @@
 ﻿using LiteDB;
-
 using Microsoft.IdentityModel.Tokens;
-
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-
+using System.Linq;
 using WebAdmin.Models.Account;
 using WebAdmin.Models.Projects;
 using WebAdmin.Services.Interfaces;
 using WebAdmin.ViewModels.Account;
-using WebAdmin.ViewModels.Project;
-using WebAdmin.ViewModels.QueryModels;
 
 namespace WebAdmin.Services.Services
 {
-    public class ProjectService : IProjectService
-    {
-        private readonly ILiteCollection<Project> _projects;
-        public ProjectService(ILiteDatabase db)
-        {
-            _projects = db.GetCollection<Project>();
-        }
-        public async Task<ProjectResult> AddNewProject(Project project)
-        {
-            var exist = _projects.FindOne(m => m.Name == project.Name);
-            if (exist != null)
-            {
-                return new ProjectResult
-                {
-                    Error = "Project Exist",
-                    HttpStatus = 400,
-                    IsSuccess = false,
-
-                };
-            }
-            project.Id = ObjectId.NewObjectId().ToString();
-            _projects.Insert(project);
-
-            return new ProjectResult()
-            {
-                IsSuccess = true,
-                HttpStatus = 200,
-                Project = project
-            };
-
-
-        }
-
-        public Task<ProjectResult> DeleteProject(object user, string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<Project>> Get(ModelQuery model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ProjectResult> UpdateProject(Project project)
-        {
-            throw new NotImplementedException();
-        }
-    }
     public class UserService : IUserService
     {
         ILiteCollection<User> _users;
@@ -162,7 +109,10 @@ namespace WebAdmin.Services.Services
 
         public void AddProjectUser(AddUserProject addUserProject)
         {
-            throw new NotImplementedException();
+            var addUser = _users.FindById(addUserProject.UserId);
+            var existProject = addUser.Projects.FirstOrDefault(m => m.Id == addUserProject.ProjectId);
+            addUser.Projects.Add(existProject);
+            _users.Update(addUser);
         }
         #endregion
     }
