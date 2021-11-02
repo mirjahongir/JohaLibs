@@ -35,7 +35,7 @@
 <script>
 export default {
     props:{
-        projectsList
+        projectsList:{default:[]}
     },
     data(){
         return{

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import api from "./api";
 import axios from "axios"
-const url = "http://127.0.0.1:4050";
+const url = "http://127.0.0.1:2030";
 Vue.use(Vuex)
 
 var http = axios.create({
@@ -26,8 +26,20 @@ export default new Vuex.Store({
         position: 'top-left'
       })
     },
-    erroParse:(state, getters)=>(_this, error)=>{
-      console.log(error);
+    errorParse: (state, getters) => (_this, error) => {
+      switch (error.response.status) {
+        case 401:
+          _this.$router.push({
+            path: "/login"
+          });
+          break;
+          case 400:
+            break;
+          case 500:break;
+          default:break;
+      }
+      console.log(error.response.status);
+
 
     }
   },

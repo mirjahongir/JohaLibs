@@ -28,6 +28,7 @@ namespace WebAdmin.Controllers
             }
 
         }
+      //  [AlloAnanimus]
         [HttpPost]
         public RegisterResult RegisterUser([FromBody] RegisterViewModel model)
         {

@@ -33,8 +33,6 @@ namespace AspNetCoreResult.Startup
                .WithOrigins("*")
                .AllowAnyMethod()
                .AllowAnyHeader());
-
-            // CoreState.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
             app.UseCookiePolicy();
             app.UseSession();
         }

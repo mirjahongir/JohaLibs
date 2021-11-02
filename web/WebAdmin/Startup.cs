@@ -1,10 +1,18 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AspNetCoreResult.Startup;
+using AspNetCoreResult.Validators;
+
+using LiteDB;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+
+using WebAdmin.Services.Interfaces;
+using WebAdmin.Services.Services;
 
 namespace WebAdmin
 {
@@ -44,7 +52,19 @@ namespace WebAdmin
                             ValidateIssuerSigningKey = true,
                         };
                     });
-            services.AddControllersWithViews();
+            services.AddCoreBuilder();
+
+
+            LiteDatabase db = new LiteDatabase("project.db");
+
+            services.AddSingleton<ILiteDatabase>(db);
+            services.AddSingleton<IConfigService, ConfigService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProjectService, ProjectService>();
+
+            services.AddControllersWithViews(m=> {
+                m.Filters.Add(new ActionValidatorFilter());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +81,8 @@ namespace WebAdmin
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.ConfigureApp();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

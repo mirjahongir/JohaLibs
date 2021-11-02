@@ -107,7 +107,7 @@ namespace AspNetCoreResult.Validators
         }
         public object JwtValue(ClaimsPrincipal claim, PropertyInfo prop, string jwtKey)
         {
-            var jwtValue = claim.FindFirst(m => string.Equals(jwtKey, m.Type, System.StringComparison.OrdinalIgnoreCase)).Value;
+            var jwtValue = claim?.Claims?.FirstOrDefault(m => string.Equals(jwtKey, m.Type, System.StringComparison.OrdinalIgnoreCase))?.Value;
             if (string.IsNullOrEmpty(jwtValue)) return null;
             switch (prop.PropertyType.Name.ToLower())
             {

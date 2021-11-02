@@ -50,7 +50,7 @@ namespace WebAdmin
         public const string ISSUER = "WebAdminToken"; // издатель токена
         public const string AUDIENCE = "AdminWeb"; // потребитель токена
         const string KEY = "jpZXRGi3bJM7OIACM9EBTtHeTGWM0Pks!123";   // ключ для шифрации
-        public const int LIFETIME = 1; // время жизни токена - 1 минута
+        public const int LIFETIME = 999; // время жизни токена - 1 минута
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
             return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));

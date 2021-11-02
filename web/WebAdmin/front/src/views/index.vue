@@ -1,6 +1,12 @@
 <template>
   <div>
     <vs-row>
+      <vs-col></vs-col>
+      <vs-col>
+        <add-project-modal></add-project-modal>
+      </vs-col>
+    </vs-row>
+    <vs-row>
       <vs-col
         vs-type="flex"
         vs-justify="flex-start"
@@ -17,18 +23,39 @@
 
 <script>
 import ProjectList from "../components/projectList.vue";
+
+import AddProjectModal from "../components/addProjectModal.vue";
 export default {
   components: {
     ProjectList,
+    AddProjectModal,
   },
   data() {
     return {
-      propjects:[]
+      propjects: [],
+      query: {
+        id: "",
+        name: "",
+        pageNumber: 0,
+        pageSize: 100,
+      },
     };
   },
-  methods: {},
+  methods: {
+    getQuery() {
+      let query = new URLSearchParams(this.query);
+      this.$api.get("/apimate/Project/Get?" + query).then(
+        (response) => {
+          console.log(response);
+        },
+        (err) => {
+          this.$store.getters.errorParse(this, err);
+        }
+      );
+    },
+  },
   mounted() {
-      this.$api.get("/").then(response=>{});
+    this.getQuery();
   },
 };
 </script>
