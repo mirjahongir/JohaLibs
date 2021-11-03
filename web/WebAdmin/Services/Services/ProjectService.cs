@@ -1,6 +1,5 @@
 ﻿using LiteDB;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,10 +8,81 @@ using WebAdmin.Models.Account;
 using WebAdmin.Models.Projects;
 using WebAdmin.Services.Interfaces;
 using WebAdmin.ViewModels.Project;
+using WebAdmin.ViewModels.ProjectError;
 using WebAdmin.ViewModels.QueryModels;
 
 namespace WebAdmin.Services.Services
 {
+    public class ProjectErrorService : IProjectErrorService
+    {
+        private readonly ILiteCollection<ProjectError> _error;
+        public ProjectErrorService(ILiteDatabase db)
+        {
+            _error = db.GetCollection<ProjectError>();
+        }
+        public async Task<ProjectErrorResult> Delete(string projectId, string id)
+        {
+            var project = _error.FindOne(m => m.ProjectId == projectId && m.Id == id);
+            if (project != null)
+            {
+                _error.Delete(id);
+                return new ProjectErrorResult()
+                {
+                    IsSuccess = true
+                };
+            }
+            return new ProjectErrorResult()
+            {
+                IsSuccess = false
+            };
+        }
+
+        public async Task<ProjectErrorResult> Post(ProjectError model)
+        {
+            if (!CheckError(model))
+            {
+                return new ProjectErrorResult()
+                {
+                    IsSuccess = false
+                };
+            }
+
+            model.Id = ObjectId.NewObjectId().ToString();
+            _error.Insert(model);
+            return new ProjectErrorResult()
+            {
+                IsSuccess = true,
+                ProjectError = model
+            };
+        }
+        public bool CheckError(ProjectError model)
+        {
+            if (string.IsNullOrEmpty(model.ProjectId))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<ProjectErrorResult> Put(ProjectError model)
+        {
+            if (!CheckError(model))
+            {
+                return new ProjectErrorResult() { IsSuccess = false };
+            }
+            _error.Update(model);
+            return new ProjectErrorResult()
+            {
+                IsSuccess = true,
+                ProjectError = model
+            };
+        }
+
+        public async Task<List<ProjectError>> Query(ModelQuery model)
+        {
+
+        }
+    }
     public class ProjectService : IProjectService
     {
         private readonly ILiteCollection<Project> _projects;

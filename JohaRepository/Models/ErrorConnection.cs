@@ -14,6 +14,17 @@
         public string Password { get; set; }
         public string Url { get; set; }
         public string DbName { get; set; }
+        public bool CHeck()
+        {
+            if (!string.IsNullOrEmpty(LoginName) &&
+                string.IsNullOrEmpty(Password) &&
+                string.IsNullOrEmpty(Url)
+                )
+                return true;
+            return false;
+
+
+        }
 
     }
 }

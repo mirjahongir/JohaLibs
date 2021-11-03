@@ -4,6 +4,11 @@ using LiteDB;
 
 using Microsoft.AspNetCore.Http;
 
+using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace AspNetCoreResult
 {
     /// <summary>
@@ -31,12 +36,17 @@ namespace AspNetCoreResult
     /// </summary>
     internal static partial class ResultLogic
     {
+        internal static bool ConnectionExist { get; set; } = false;
         public static ErrorModal GetError(this int code)
         {
-            var result = ErrorModals.FindOne(m => m.Code == code);
-            return result;
-        }
+            if (ConnectionExist)
+            {
+                var result = ErrorModals.FindOne(m => m.Code == code);
+                return result;
+            }
+            return null;
 
+        }
 
         private static ILiteCollection<ErrorModal> _errorModals;
         public static ILiteDatabase liteDatabase { get; set; }
@@ -45,6 +55,7 @@ namespace AspNetCoreResult
             get
             {
 
+                if (!ConnectionExist) return null;
                 if (liteDatabase == null)
                 {
                     liteDatabase = new LiteDatabase(Connection?.DbName ?? "error.db");
@@ -63,6 +74,30 @@ namespace AspNetCoreResult
                 }
                 return _errorModals;
             }
+        }
+
+
+        public static HttpClient Client
+        {
+            get
+            {
+                HttpClientHandler handler = new HttpClientHandler()
+                {
+
+                };
+                // ... Use HttpClient.            
+                HttpClient client = new HttpClient(handler);
+                client.BaseAddress = new Uri(Connection.Url);
+                var byteArray = Encoding.ASCII.GetBytes(Connection.LoginName + ":" + Connection.Password);
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
+                return client;
+            }
+        }
+        public static async Task<object> GetErrorList()
+        {
+            var result = await Client.GetAsync("");
+            var erroroList = result.Content;
+            return erroroList;
         }
 
     }

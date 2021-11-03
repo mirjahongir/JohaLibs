@@ -3,7 +3,7 @@
     <vs-row>
       <vs-col></vs-col>
       <vs-col>
-        <add-project-modal></add-project-modal>
+        <add-project-modal @addProject="newProject"></add-project-modal>
       </vs-col>
     </vs-row>
     <vs-row>
@@ -23,7 +23,6 @@
 
 <script>
 import ProjectList from "../components/projectList.vue";
-
 import AddProjectModal from "../components/addProjectModal.vue";
 export default {
   components: {
@@ -42,11 +41,16 @@ export default {
     };
   },
   methods: {
+    newProject(project) {
+      console.log(project);
+      this.propjects.push(project);
+    },
     getQuery() {
       let query = new URLSearchParams(this.query);
       this.$api.get("/apimate/Project/Get?" + query).then(
         (response) => {
           console.log(response);
+          this.propjects = response;
         },
         (err) => {
           this.$store.getters.errorParse(this, err);

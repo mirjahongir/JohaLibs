@@ -1,5 +1,12 @@
-﻿using JohaRepository.Attributes.Auth;
+﻿using AspNetCoreResult.ResponseCoreResult;
+
+using JohaRepository.Attributes.Auth;
+
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
+
+using Newtonsoft.Json;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +29,10 @@ namespace AspNetCoreResult.Validators
                 await next();
                 return;
             }
+            var coreResult = new CoreResult<object>(context.ModelState);
+            context.HttpContext.Response.StatusCode = 400;
+            context.HttpContext.Response.ContentType = "application/json";
+            await context.HttpContext.Response.WriteAsync(JsonConvert.SerializeObject(coreResult));
 
         }
         /// <summary>
@@ -132,11 +143,11 @@ namespace AspNetCoreResult.Validators
             switch (propType)
             {
                 case "string":
-                    return instance.Cast<string>();
+                    return instance.Cast<string>().ToList();
                 case "int32":
-                    return instance.Cast<int>();
-                case "int64": return instance.Cast<long>();
-                case "double": return instance.Cast<double>();
+                    return instance.Cast<int>().ToList();
+                case "int64": return instance.Cast<long>().ToList();
+                case "double": return instance.Cast<double>().ToList();
                 default: return null;
             }
         }

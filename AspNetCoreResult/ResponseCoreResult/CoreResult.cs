@@ -1,6 +1,11 @@
 ﻿using JohaRepository.Exception;
 using JohaRepository.Models.ErrorModels;
+
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreResult.ResponseCoreResult
 {
@@ -14,7 +19,33 @@ namespace AspNetCoreResult.ResponseCoreResult
         public int HttpStatus { get; set; }
         public bool IsSuccess { get; set; } = true;
         public int Code { get; set; }
-        public ErrorModal Error { get; set; }
+
+        public List<ErrorModal> Errors { get; set; } = new List<ErrorModal>();
+    }
+    /// <summary>
+    /// Check Require Fields
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public partial class CoreResult<T>
+    {
+        public CoreResult(ModelStateDictionary modelState)
+        {
+            SetHttpStatus(400);
+            SetIsSuccess(false);
+
+            foreach (var i in modelState.Values)
+            {
+                foreach (var err in i.Errors)
+                {
+                    ErrorModal modal = new ErrorModal()
+                    {
+                        RusText = err.Exception.Message,
+                        UzbText = err.Exception.Message,
+                        EngText = err.Exception.Message
+                    };
+                }
+            }
+        }
 
     }
 
@@ -76,7 +107,7 @@ namespace AspNetCoreResult.ResponseCoreResult
             {
 
             }
-            this.Error = errorModal;
+            this.Errors.Add(errorModal);
 
             SetHttpStatus(errorModal.StatusCode, 400);
 
@@ -120,7 +151,7 @@ namespace AspNetCoreResult.ResponseCoreResult
         public CoreResult(CoreResult<T> model)
         {
             Result = model.Result;
-            this.Error = model.Error;
+            this.Errors = model.Errors;
             this.HttpStatus = model.HttpStatus;
             this.IsSuccess = model.IsSuccess;
             this.Code = model.Code;
@@ -134,6 +165,11 @@ namespace AspNetCoreResult.ResponseCoreResult
         {
             return new CoreResult<T>(model);
         }
+        public static implicit operator CoreResult<T> (Task<T> model)
+        {
+           return new CoreResult<T>( model.Result);
+        }
+
         public static implicit operator CoreResult<T>(int code) => new CoreResult<T>(code);
 
 

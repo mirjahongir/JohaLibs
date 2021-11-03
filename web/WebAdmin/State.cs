@@ -36,7 +36,8 @@ namespace WebAdmin
                 };
             foreach (var i in user?.Projects)
             {
-                claims.Add(new Claim("project", i.Id));
+                if (!string.IsNullOrEmpty(i.Id))
+                    claims.Add(new Claim("project", i.Id));
             }
 
             ClaimsIdentity claimsIdentity =

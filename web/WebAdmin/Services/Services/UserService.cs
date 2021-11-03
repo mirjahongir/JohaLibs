@@ -95,6 +95,18 @@ namespace WebAdmin.Services.Services
             return _users.FindOne(m => m.UserName == name);
         }
 
+      
+
+        public void AddProjectUser(AddUserProject addUserProject)
+        {
+            var addUser = _users.FindById(addUserProject.UserId);
+            var existProject = addUser.Projects.FirstOrDefault(m => m.Id == addUserProject.ProjectId);
+            addUser.Projects.Add(existProject);
+            _users.Update(addUser);
+        }
+        #endregion
+
+
         public void AddProjectUser(Project project)
         {
             var user = _users.FindById(project.UserId);
@@ -107,13 +119,14 @@ namespace WebAdmin.Services.Services
 
         }
 
-        public void AddProjectUser(AddUserProject addUserProject)
+        public void RemoveProject(User user, string id)
         {
-            var addUser = _users.FindById(addUserProject.UserId);
-            var existProject = addUser.Projects.FirstOrDefault(m => m.Id == addUserProject.ProjectId);
-            addUser.Projects.Add(existProject);
-            _users.Update(addUser);
+           var projects= user.Projects.Where(m => m.Id == id).ToList();
+            foreach(var i in projects)
+            {
+                user.Projects.Remove(i);
+            }
+            _users.Update(user);
         }
-        #endregion
     }
 }
