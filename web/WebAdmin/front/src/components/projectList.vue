@@ -33,6 +33,13 @@
             <vs-button
               color="primary"
               type="border"
+              icon="article"
+              @click="goProjectError(data[indextr])"
+            ></vs-button>
+
+            <vs-button
+              color="primary"
+              type="border"
               icon="delete"
               @click="deleteModal(data[indextr])"
             ></vs-button>
@@ -81,6 +88,10 @@ export default {
     };
   },
   methods: {
+    goProjectError(project) {
+      this.$store.state.selectProject = project;
+      this.$router.push({ path: "/projectError/" + project.id });
+    },
     editProject(project) {
       this.selectProject = project;
       this.showModal = true;

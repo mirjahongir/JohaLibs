@@ -13,10 +13,22 @@ Vue.use(api, {
 });
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    selectProject: null,
+  },
   mutations: {},
   actions: {},
   getters: {
+    deleteById: (state, getters) => (list, id) => {
+      for (let i = 0; i < list.length; i++) {
+        if (list[i].id == id) {
+          list.splice(i, 1);
+          break;
+        }
+
+      }
+
+    },
     showError: (state, getters) => (_this, message, title = "") => {
       _this.
       $vs.notify({
@@ -33,10 +45,12 @@ export default new Vuex.Store({
             path: "/login"
           });
           break;
-          case 400:
-            break;
-          case 500:break;
-          default:break;
+        case 400:
+          break;
+        case 500:
+          break;
+        default:
+          break;
       }
       console.log(error.response.status);
 

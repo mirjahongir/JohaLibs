@@ -84,20 +84,32 @@ namespace AspNetCoreResult.ResponseCoreResult
                 if (ext.Status == 0)
                 {
                     SetHttpStatus(ext.Status);
+                    SetIsSuccess(false);
+                    Errors.Add(new ErrorModal()
+                    {
+                        Message = ext.Message,
+                        EngText = ext.Message,
+                        UzbText = ext.Message,
+                        RusText = ext.Message,
+
+                    });
+
                 }
             }
         }
+
         public void SetHttpStatus(int statusCode, int defaultValue = 400)
         {
             if (statusCode == 0)
             {
                 HttpStatus = defaultValue;
-                ResultLogic.HttpContext.Response.StatusCode = defaultValue;
+             
+                ResultLogic.HttpContext.HttpContext.Response.StatusCode = defaultValue;
             }
             else
             {
                 HttpStatus = statusCode;
-                ResultLogic.HttpContext.Response.StatusCode = statusCode;
+                ResultLogic.HttpContext.HttpContext.Response.StatusCode = statusCode;
 
             }
         }
@@ -109,7 +121,7 @@ namespace AspNetCoreResult.ResponseCoreResult
             }
             this.Errors.Add(errorModal);
 
-            SetHttpStatus(errorModal.StatusCode, 400);
+            SetHttpStatus(errorModal.HttpStatus, 400);
 
         }
         public void SetIsSuccess(bool isSuccess = true)
@@ -165,9 +177,9 @@ namespace AspNetCoreResult.ResponseCoreResult
         {
             return new CoreResult<T>(model);
         }
-        public static implicit operator CoreResult<T> (Task<T> model)
+        public static implicit operator CoreResult<T>(Task<T> model)
         {
-           return new CoreResult<T>( model.Result);
+            return new CoreResult<T>(model.Result);
         }
 
         public static implicit operator CoreResult<T>(int code) => new CoreResult<T>(code);

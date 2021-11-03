@@ -1,4 +1,5 @@
-﻿using AspNetCoreResult.Startup;
+﻿using AspNetCoreResult;
+using AspNetCoreResult.Startup;
 using AspNetCoreResult.Validators;
 
 using LiteDB;
@@ -6,10 +7,13 @@ using LiteDB;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+
+using System;
 
 using WebAdmin.Services.Interfaces;
 using WebAdmin.Services.Services;
@@ -61,6 +65,7 @@ namespace WebAdmin
             services.AddSingleton<IConfigService, ConfigService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IProjectErrorService, ProjectErrorService>();
 
             services.AddControllersWithViews(m=> {
                 m.Filters.Add(new ActionValidatorFilter());
@@ -68,7 +73,7 @@ namespace WebAdmin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHttpContextAccessor accessor)
         {
             if (env.IsDevelopment())
             {
@@ -78,10 +83,10 @@ namespace WebAdmin
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseStaticFiles();
             app.ConfigureApp();
+            app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -91,6 +96,7 @@ namespace WebAdmin
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
         }
     }
 }

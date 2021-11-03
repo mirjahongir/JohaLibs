@@ -1,4 +1,6 @@
-﻿using LiteDB;
+﻿using JohaRepository.Exception;
+
+using LiteDB;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -80,7 +82,16 @@ namespace WebAdmin.Services.Services
 
         public async Task<List<ProjectError>> Query(ModelQuery model)
         {
-
+            if (string.IsNullOrEmpty(model.Id))
+            {
+                throw new RepoException("Project Id not Found");
+            }
+            var query = _error.Find(m => m.ProjectId == model.Id);
+            if (!string.IsNullOrEmpty(model.Name))
+            {
+                query = query.Where(m => m.ErrorModel.UzbText.Contains(model.Name));
+            }
+            return query.ToList();
         }
     }
     public class ProjectService : IProjectService

@@ -14,11 +14,11 @@ namespace AspNetCoreResult
     /// <summary>
     /// 
     /// </summary>
-    internal partial class ResultLogic
+    public partial class ResultLogic
     {
 
-        private static HttpContext _httpContext;
-        public static HttpContext HttpContext
+        private static IHttpContextAccessor _httpContext;
+        public static IHttpContextAccessor HttpContext
         {
             get
             {
@@ -34,7 +34,7 @@ namespace AspNetCoreResult
     /// <summary>
     /// Error Handler
     /// </summary>
-    internal static partial class ResultLogic
+    public static partial class ResultLogic
     {
         internal static bool ConnectionExist { get; set; } = false;
         public static ErrorModal GetError(this int code)

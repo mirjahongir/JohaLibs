@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace AspNetCoreResult.Startup
 {
@@ -31,11 +33,15 @@ namespace AspNetCoreResult.Startup
         /// <param name="app"></param>
         public static void ConfigureApp(this IApplicationBuilder app)
         {
-            ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
+            //  ResultLogic.HttpContext = serviceProvider.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
+            ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
+            // ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
+            //  app.UseMiddleware<TokenMiddleware>();
             app.UseCors(builder => builder
                .WithOrigins("*")
                .AllowAnyMethod()
                .AllowAnyHeader());
+
             app.UseCookiePolicy();
             app.UseSession();
         }
@@ -70,4 +76,20 @@ namespace AspNetCoreResult.Startup
 
 
     }
+    //public class TokenMiddleware
+    //{
+    //    private readonly RequestDelegate _next;
+
+    //    public TokenMiddleware(RequestDelegate next)
+    //    {
+    //        this._next = next;
+    //    }
+
+    //    public async Task InvokeAsync(HttpContext context)
+    //    {
+    //        ResultLogic.HttpContext = context;
+    //        await _next.Invoke(context);
+
+    //    }
+    //}
 }
