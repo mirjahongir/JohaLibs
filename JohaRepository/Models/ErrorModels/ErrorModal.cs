@@ -12,9 +12,9 @@ namespace JohaRepository.Models.ErrorModels
         public string Message { get; set; }
         public string Link { get; set; }
         public string UzbText { get; set; }
-      
+
         public string RusText { get; set; }
         public string EngText { get; set; }
-       
+
     }
 }

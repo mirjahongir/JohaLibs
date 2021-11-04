@@ -7,7 +7,7 @@ namespace WebAdmin.ViewModels.QueryModels
     [AuthModel]
     public class ModelQuery
     {
-        
+
         public string Id { get; set; }
         public string Name { get; set; }
 

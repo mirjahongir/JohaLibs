@@ -103,7 +103,7 @@ namespace AspNetCoreResult.ResponseCoreResult
             if (statusCode == 0)
             {
                 HttpStatus = defaultValue;
-             
+
                 ResultLogic.HttpContext.HttpContext.Response.StatusCode = defaultValue;
             }
             else

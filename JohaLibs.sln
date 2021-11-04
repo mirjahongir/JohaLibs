@@ -16,6 +16,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositorys", "Repositorys", "{A755554E-3857-4FC3-A903-B73A649B3734}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoRepository", "MongoRepository\MongoRepository.csproj", "{78797383-334D-458F-8512-2FD41D8C630E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisRepository", "RedisRepository\RedisRepository.csproj", "{6033D766-8AD4-4F09-A435-F667E599EE05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,12 +40,22 @@ Global
 		{A71018AC-11AA-4705-8F56-EC7742A3E46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A71018AC-11AA-4705-8F56-EC7742A3E46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A71018AC-11AA-4705-8F56-EC7742A3E46E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78797383-334D-458F-8512-2FD41D8C630E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78797383-334D-458F-8512-2FD41D8C630E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78797383-334D-458F-8512-2FD41D8C630E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78797383-334D-458F-8512-2FD41D8C630E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6033D766-8AD4-4F09-A435-F667E599EE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6033D766-8AD4-4F09-A435-F667E599EE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6033D766-8AD4-4F09-A435-F667E599EE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6033D766-8AD4-4F09-A435-F667E599EE05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A71018AC-11AA-4705-8F56-EC7742A3E46E} = {DFC23908-13C5-45A3-89E9-84ECEB01C5ED}
+		{78797383-334D-458F-8512-2FD41D8C630E} = {A755554E-3857-4FC3-A903-B73A649B3734}
+		{6033D766-8AD4-4F09-A435-F667E599EE05} = {A755554E-3857-4FC3-A903-B73A649B3734}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7823A1C4-9725-485B-83E9-B0731F06CF0A}

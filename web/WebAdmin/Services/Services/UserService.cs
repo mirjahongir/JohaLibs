@@ -1,9 +1,12 @@
 ﻿using LiteDB;
+
 using Microsoft.IdentityModel.Tokens;
+
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+
 using WebAdmin.Models.Account;
 using WebAdmin.Models.Projects;
 using WebAdmin.Services.Interfaces;
@@ -95,7 +98,7 @@ namespace WebAdmin.Services.Services
             return _users.FindOne(m => m.UserName == name);
         }
 
-      
+
 
         public void AddProjectUser(AddUserProject addUserProject)
         {
@@ -121,8 +124,8 @@ namespace WebAdmin.Services.Services
 
         public void RemoveProject(User user, string id)
         {
-           var projects= user.Projects.Where(m => m.Id == id).ToList();
-            foreach(var i in projects)
+            var projects = user.Projects.Where(m => m.Id == id).ToList();
+            foreach (var i in projects)
             {
                 user.Projects.Remove(i);
             }

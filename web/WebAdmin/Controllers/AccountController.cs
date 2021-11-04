@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+
 using System;
+
 using WebAdmin.Services.Interfaces;
 using WebAdmin.ViewModels.Account;
 namespace WebAdmin.Controllers
@@ -28,7 +30,7 @@ namespace WebAdmin.Controllers
             }
 
         }
-      //  [AlloAnanimus]
+        //  [AlloAnanimus]
         [HttpPost]
         public RegisterResult RegisterUser([FromBody] RegisterViewModel model)
         {
