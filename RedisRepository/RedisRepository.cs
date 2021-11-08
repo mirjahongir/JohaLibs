@@ -1,7 +1,6 @@
-﻿using JohaRepository;
-
+﻿using JohaRepository.Interfaces;
+using JohaRepository.Models;
 using Newtonsoft.Json;
-
 using StackExchange.Redis;
 
 namespace RedisRepositorys
@@ -14,6 +13,12 @@ namespace RedisRepositorys
         {
             _db = client.GetDatabase(db);
         }
+
+        //public ICachRepository<T> CreateWithConfig(CacheConfig model)
+        //{
+            
+        //}
+
         public T Get(string id)
         {
             var model = _db.StringGet(id);

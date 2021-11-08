@@ -3,20 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace JohaRepository
+namespace JohaRepository.Interfaces
 {
-    public interface IDomain<TKey>
-    {
-        TKey Id { get; set; }
-    }
-    public interface ICachRepository<T>
-        where T : class, IDomain<string>
-    {
-        void Set(T model);
-        T Get(string id);
-        void Update(T model);
-
-    }
     public interface IRepository<T, TKey>
          where T : class, IDomain<TKey>
     {

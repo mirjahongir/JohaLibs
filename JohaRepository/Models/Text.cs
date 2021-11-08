@@ -8,6 +8,9 @@
         public string UzbText { get; set; }
         public string RusText { get; set; }
         public string EngText { get; set; }
-      
+    }
+    public class CacheConfig
+    {
+        public int Db { get; set; }
     }
 }
