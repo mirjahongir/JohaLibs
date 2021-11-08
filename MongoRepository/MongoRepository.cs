@@ -1,6 +1,8 @@
 ﻿using JohaRepository;
+
 using MongoDB.Bson;
 using MongoDB.Driver;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +13,13 @@ namespace MongoRepository
     public class MongoRepository<T> : IRepository<T, string>
        where T : class, IDomain<string>
     {
+        #region Default Counstructor
         public IMongoDatabase Database { get { return _data; } }
         IMongoDatabase _data;
         public IMongoCollection<T> Collection { get { return _db; } }
         public IMongoCollection<T> _db;
+        public ICachRepository<T> _cache;
+
         public MongoRepository(IMongoDatabase data) : this(data, typeof(T).Name.ToLower())
         {
 
@@ -24,10 +29,22 @@ namespace MongoRepository
             _data = data;
             _db = data.GetCollection<T>(collectionName);
         }
+        public MongoRepository(IMongoDatabase data, ICachRepository<T> cache) : this(data)
+        {
+            _cache = cache;
+
+        }
+        public MongoRepository(IMongoDatabase data, ICachRepository<T> cache, string collectionName) : this(data, collectionName)
+        {
+            _cache = cache;
+        }
+        #endregion
+
         public virtual void Add(T model)
         {
             CheckAndAddId(model);
             _db.InsertOne(model);
+            _cache?.Set(model);
         }
         private void CheckAndAddId(T model)
         {
@@ -42,7 +59,9 @@ namespace MongoRepository
             foreach (var i in models)
             {
                 CheckAndAddId(i);
+                _cache?.Set(i);
             }
+
             _db.InsertMany(models);
         }
 
@@ -53,7 +72,8 @@ namespace MongoRepository
 
         public virtual T Get(string id)
         {
-            return _db.Find(m => m.Id == id).FirstOrDefault();
+
+            return _cache?.Get(id) ?? _db.Find(m => m.Id == id).FirstOrDefault();
         }
 
         public virtual IQueryable<T> GetAll()

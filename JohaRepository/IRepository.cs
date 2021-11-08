@@ -15,6 +15,7 @@ namespace JohaRepository
         void Set(T model);
         T Get(string id);
         void Update(T model);
+
     }
     public interface IRepository<T, TKey>
          where T : class, IDomain<TKey>
