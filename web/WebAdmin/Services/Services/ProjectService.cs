@@ -1,4 +1,4 @@
-﻿using JohaRepository.Exception;
+﻿using JohaRepository.Exceptions;
 
 using LiteDB;
 

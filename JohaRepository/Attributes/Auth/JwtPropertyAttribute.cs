@@ -1,8 +1,4 @@
-﻿
-
-using System.Security.Claims;
-
-namespace JohaRepository.Attributes.Auth
+﻿namespace JohaRepository.Attributes.Auth
 {
     /// <summary>
     /// 

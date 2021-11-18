@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace JohaRepository.Exception
+namespace JohaRepository.Exceptions
 {
     /// <summary>
     /// 

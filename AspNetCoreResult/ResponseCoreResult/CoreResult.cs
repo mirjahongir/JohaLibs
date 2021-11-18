@@ -1,4 +1,4 @@
-﻿using JohaRepository.Exception;
+﻿using JohaRepository.Exceptions;
 using JohaRepository.Models.ErrorModels;
 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -45,6 +45,10 @@ namespace AspNetCoreResult.ResponseCoreResult
                     };
                 }
             }
+        }
+        public static implicit operator CoreResult<T>(ModelStateDictionary model)
+        {
+            return new CoreResult<T>(model);
         }
 
     }

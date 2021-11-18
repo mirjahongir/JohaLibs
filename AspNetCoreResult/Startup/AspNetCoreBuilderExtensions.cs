@@ -32,7 +32,7 @@ namespace AspNetCoreResult.Startup
         public static void ConfigureApp(this IApplicationBuilder app)
         {
             //  ResultLogic.HttpContext = serviceProvider.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
-            ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
+           ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
             // ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
             //  app.UseMiddleware<TokenMiddleware>();
             app.UseCors(builder => builder
@@ -74,20 +74,5 @@ namespace AspNetCoreResult.Startup
 
 
     }
-    //public class TokenMiddleware
-    //{
-    //    private readonly RequestDelegate _next;
 
-    //    public TokenMiddleware(RequestDelegate next)
-    //    {
-    //        this._next = next;
-    //    }
-
-    //    public async Task InvokeAsync(HttpContext context)
-    //    {
-    //        ResultLogic.HttpContext = context;
-    //        await _next.Invoke(context);
-
-    //    }
-    //}
 }

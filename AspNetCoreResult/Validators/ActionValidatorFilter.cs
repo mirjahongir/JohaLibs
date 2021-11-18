@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 using Newtonsoft.Json;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,20 @@ namespace AspNetCoreResult.Validators
     /// </summary>
     public class ActionValidatorFilter : IAsyncActionFilter
     {
+
+        public ActionValidatorFilter()
+        {
+
+        }
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+            JsonConvert.SerializeObject(context.ActionArguments);
+
             ChackUserInfo(context);
             if (context.ModelState.IsValid)
             {
                 await next();
+
                 return;
             }
             var coreResult = new CoreResult<object>(context.ModelState);
@@ -54,16 +63,28 @@ namespace AspNetCoreResult.Validators
                 foreach (var prop in properties)
                 {
                     var attr = prop.GetCustomAttribute<JwtPropertyAttribute>();
-
                     SetJwtValueToProperty(context.HttpContext.User, prop, arg.Value, attr);
                 }
 
+                var obj = Activator.CreateInstance(userInfo.PropertyType);
+                foreach (var i in userInfo.PropertyType.GetProperties())
+                {
+                    var attr = i.GetCustomAttribute<JwtPropertyAttribute>();
+                    if (attr != null)
+                        SetJwtValueToProperty(context.HttpContext.User, i, obj, attr);
+                }
+
+
+                userInfo.SetValue(arg.Value, obj);
 
 
             }
 
         }
-        public void SetJwtValueToProperty(ClaimsPrincipal claim, PropertyInfo prop, object value, JwtPropertyAttribute attr)
+        public void SetJwtValueToProperty(ClaimsPrincipal claim,
+            PropertyInfo prop,
+            object value,
+            JwtPropertyAttribute attr)
         {
 
             var jwtValue = JwtValue(claim, prop, attr.JwtKey);
@@ -151,6 +172,5 @@ namespace AspNetCoreResult.Validators
                 default: return null;
             }
         }
-
     }
 }

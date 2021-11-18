@@ -1,6 +1,7 @@
 ﻿using JohaRepository.Interfaces;
-using JohaRepository.Models;
+
 using Newtonsoft.Json;
+
 using StackExchange.Redis;
 
 namespace RedisRepositorys
@@ -16,7 +17,7 @@ namespace RedisRepositorys
 
         //public ICachRepository<T> CreateWithConfig(CacheConfig model)
         //{
-            
+
         //}
 
         public T Get(string id)
@@ -29,15 +30,31 @@ namespace RedisRepositorys
             return null;
         }
 
+        public void Remove(string id)
+        {
+
+        }
+
         public void Set(T model)
         {
+            SetById(model.Id, model);
+        }
+
+        public void SetById(string id, T model)
+        {
             var data = JsonConvert.SerializeObject(model);
-            _db.StringSet(model.Id, data);
+            _db.StringSet(id, data);
         }
 
         public void Update(T model)
         {
-            _db.StringSet(model.Id, JsonConvert.SerializeObject(model));
+            UpdateByKey(model.Id, model);
+
+        }
+
+        public void UpdateByKey(string id, T model)
+        {
+            _db.StringSet(id, JsonConvert.SerializeObject(model));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using JohaRepository.Interfaces;
+
 using MongoDB.Bson;
 using MongoDB.Driver;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,11 +97,13 @@ namespace MongoRepository
 
         public virtual void Update(T model)
         {
+            _cache?.Set(model);
             _db.FindOneAndReplace(m => m.Id == model.Id, model);
         }
 
         public virtual T Remove(string id)
         {
+
             var result = _db.Find(m => m.Id == id).FirstOrDefault();
             if (result == null) { return null; }
             _db.DeleteOne(m => m.Id == id);
