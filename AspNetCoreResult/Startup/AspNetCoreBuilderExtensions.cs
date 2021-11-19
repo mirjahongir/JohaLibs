@@ -32,7 +32,7 @@ namespace AspNetCoreResult.Startup
         public static void ConfigureApp(this IApplicationBuilder app)
         {
             //  ResultLogic.HttpContext = serviceProvider.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
-           ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
+            ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
             // ResultLogic.HttpContext = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>()?.HttpContext;
             //  app.UseMiddleware<TokenMiddleware>();
             app.UseCors(builder => builder
@@ -61,9 +61,10 @@ namespace AspNetCoreResult.Startup
             }
 
         }
+
         private static void ChangeTime(object state)
         {
-
+            
         }
         private static void StartTimer()
         {

@@ -81,6 +81,10 @@ namespace AspNetCoreResult.ResponseCoreResult
             if (ext.Code != 0)
             {
                 var errorModal = ext.Code.GetError();
+                if (errorModal == null)
+                {
+                    errorModal = new ErrorModal();
+                }
                 ParseErrorModal(errorModal);
             }
             else
@@ -119,10 +123,7 @@ namespace AspNetCoreResult.ResponseCoreResult
         }
         public void ParseErrorModal(ErrorModal errorModal)
         {
-            if (errorModal == null)
-            {
 
-            }
             this.Errors.Add(errorModal);
 
             SetHttpStatus(errorModal.HttpStatus, 400);

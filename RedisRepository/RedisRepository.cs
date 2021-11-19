@@ -32,7 +32,7 @@ namespace RedisRepositorys
 
         public void Remove(string id)
         {
-
+            _db.KeyDelete(id);
         }
 
         public void Set(T model)

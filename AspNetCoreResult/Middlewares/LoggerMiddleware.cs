@@ -17,7 +17,7 @@ namespace AspNetCoreResult.Middlewares
     public class LoggerMiddleware
     {
         private readonly RequestDelegate _next;
-        ILogger<LoggerModel> _log;
+        readonly ILogger<LoggerModel> _log;
         public LoggerMiddleware(RequestDelegate next, ILogger<LoggerModel> log)
         {
             _next = next;
@@ -26,7 +26,7 @@ namespace AspNetCoreResult.Middlewares
         public async Task ParseRequest(HttpContext context, LoggerModel model)
         {
             context.Request.EnableBuffering();
-            var body = context.Request.Body;
+
             var buffer = new byte[Convert.ToInt32(context.Request.ContentLength)];
             await context.Request.Body.ReadAsync(buffer, 0, buffer.Length);
             context.Request.Body.Position = 0;
@@ -50,7 +50,7 @@ namespace AspNetCoreResult.Middlewares
                     await _next.Invoke(context);
                     watch.Stop();
                     model.ElepsedMillesecund = watch.ElapsedMilliseconds;
-                    watch = null;
+
                     memStream.Position = 0;
                     string responseBody = new StreamReader(memStream).ReadToEnd();
 
