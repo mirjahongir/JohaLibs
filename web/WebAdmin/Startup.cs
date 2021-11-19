@@ -1,8 +1,6 @@
 ﻿using AspNetCoreResult.Startup;
 using AspNetCoreResult.Validators;
-
 using LiteDB;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,11 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-
-using SharpRepository.Ioc.Microsoft.DependencyInjection;
-
 using System;
-
 using WebAdmin.Services.Interfaces;
 using WebAdmin.Services.Services;
 
@@ -31,7 +25,7 @@ namespace WebAdmin
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -72,7 +66,6 @@ namespace WebAdmin
             {
                 m.Filters.Add(new ActionValidatorFilter());
             });
-            return services.UseSharpRepository(Configuration.GetSection("sharpRepository"), "efCore"); // for Ef Core
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

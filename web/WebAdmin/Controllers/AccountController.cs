@@ -22,7 +22,10 @@ namespace WebAdmin.Controllers
             try
             {
 
-                return _user.LoginUser(model);
+                var result= _user.LoginUser(model);
+                if (result.HttpStatus > 200)
+                    Response.StatusCode = result.HttpStatus;
+                return result;
             }
             catch (Exception ex)
             {

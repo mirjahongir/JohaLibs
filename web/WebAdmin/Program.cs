@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Diagnostics;
 
 namespace WebAdmin
 {
@@ -7,15 +10,15 @@ namespace WebAdmin
     {
         public static void Main(string[] args)
         {
+            //AppConfig.Start.CheckArg(args);
+            Console.Title = "Web Admin";
+            Console.WriteLine($@"Process Id: {Process.GetCurrentProcess().Id}");
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseUrls("http://*:2030");
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
+              WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://*:2030")
+                .UseStartup<Startup>();
     }
 }
