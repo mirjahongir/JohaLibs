@@ -39,9 +39,9 @@ namespace AspNetCoreResult.ResponseCoreResult
                 {
                     ErrorModal modal = new ErrorModal()
                     {
-                        RusText = err.Exception.Message,
-                        UzbText = err.Exception.Message,
-                        EngText = err.Exception.Message
+                        RusText = err.ErrorMessage,
+                        UzbText = err.ErrorMessage,
+                        EngText = err.ErrorMessage
                     };
                 }
             }

@@ -10,7 +10,7 @@ namespace WebAdmin.Services.Interfaces
 {
     public interface IProjectService
     {
-        Task<List<Project>> Get(ModelQuery model);
+        Task<List<Project>> Get(ModelQuery model, User user);
         Task<ProjectResult> AddNewProject(Project project);
         Task<ProjectResult> UpdateProject(Project project);
         Task<ProjectResult> DeleteProject(User user, string id);

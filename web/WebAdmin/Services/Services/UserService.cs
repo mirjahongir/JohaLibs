@@ -131,5 +131,10 @@ namespace WebAdmin.Services.Services
             }
             _users.Update(user);
         }
+
+        public User Get(string id)
+        {
+           return _users.FindById(id);
+        }
     }
 }

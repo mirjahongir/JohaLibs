@@ -13,6 +13,7 @@ namespace WebAdmin.Services.Interfaces
         void AddProjectUser(Project project);
         void AddProjectUser(AddUserProject addUserProject);
         void RemoveProject(User user, string id);
+        User Get(string id);
     }
     public interface IConfigService
     {

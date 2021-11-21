@@ -30,7 +30,8 @@ namespace WebAdmin.Controllers
         [HttpGet]
         public async Task<List<Project>> Get([FromQuery] ModelQuery model)
         {
-            return await _project.Get(model);
+           var user= _user.Get(model.UserId);
+            return await _project.Get(model, user);
         }
         [HttpPost]
         public async Task<ProjectResult> Post([FromBody] Project project)

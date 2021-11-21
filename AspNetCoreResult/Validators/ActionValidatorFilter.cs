@@ -65,7 +65,7 @@ namespace AspNetCoreResult.Validators
                     var attr = prop.GetCustomAttribute<JwtPropertyAttribute>();
                     SetJwtValueToProperty(context.HttpContext.User, prop, arg.Value, attr);
                 }
-
+                if (userInfo == null) return;
                 var obj = Activator.CreateInstance(userInfo.PropertyType);
                 foreach (var i in userInfo.PropertyType.GetProperties())
                 {
