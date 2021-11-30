@@ -1,4 +1,5 @@
-﻿using JohaRepository.Interfaces;
+﻿using JohaRepository.ExtensionMethods;
+using JohaRepository.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +26,7 @@ namespace EntityRepository
 
         public virtual void Add(T model)
         {
+            EntityModelExtensions.Add(model);
             _set.Add(model);
 
             _db.SaveChanges();
@@ -32,6 +34,10 @@ namespace EntityRepository
 
         public virtual void AddRange(IEnumerable<T> models)
         {
+            foreach (var i in models)
+            {
+                EntityModelExtensions.Add(i);
+            }
             _set.AddRange(models);
             _db.SaveChanges();
         }
@@ -79,7 +85,7 @@ namespace EntityRepository
         {
             try
             {
-
+                EntityModelExtensions.Update(model);
                 _db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
                 _set.Update(model);
                 _db.SaveChanges();

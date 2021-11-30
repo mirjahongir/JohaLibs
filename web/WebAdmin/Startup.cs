@@ -1,6 +1,8 @@
 ﻿using AspNetCoreResult.Startup;
 using AspNetCoreResult.Validators;
+
 using LiteDB;
+
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System;
+
 using WebAdmin.Services.Interfaces;
 using WebAdmin.Services.Services;
 

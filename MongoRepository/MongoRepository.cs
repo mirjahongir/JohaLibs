@@ -1,4 +1,5 @@
-﻿using JohaRepository.Interfaces;
+﻿using JohaRepository.ExtensionMethods;
+using JohaRepository.Interfaces;
 
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -52,6 +53,8 @@ namespace MongoRepository
             {
                 model.Id = ObjectId.GenerateNewId().ToString();
             }
+            EntityModelExtensions.Add(model);
+           
         }
 
         public virtual void AddRange(IEnumerable<T> models)
@@ -98,6 +101,7 @@ namespace MongoRepository
         public virtual void Update(T model)
         {
             _cache?.Set(model);
+            EntityModelExtensions.Update(model);
             _db.FindOneAndReplace(m => m.Id == model.Id, model);
         }
 

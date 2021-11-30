@@ -72,14 +72,28 @@ namespace AspNetCoreResult.ResponseCoreResult
             ParseException(ext);
 
         }
+        public ErrorModal ParseError(Exception ext)
+        {
+            ErrorModal result = new ErrorModal();
+            result.Message = ext.Message;
+            result.UzbText = ext.Message;
+            result.RusText = ext.Message;
+            result.EngText = ext.Message;
+            return result;
+
+        }
         public void ParseException(Exception ext)
         {
+            Errors = new List<ErrorModal>();
+            Errors.Add(ParseError(ext));
             SetHttpStatus(400);
+            SetIsSuccess(false);
         }
         public void ParseRepoException(RepoException ext)
         {
             if (ext.Code != 0)
             {
+                SetIsSuccess(false);
                 var errorModal = ext.Code.GetError();
                 if (errorModal == null)
                 {

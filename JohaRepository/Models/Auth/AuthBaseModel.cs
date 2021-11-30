@@ -8,6 +8,6 @@ namespace JohaRepository.Models.Auth
         where T : class
     {
         [UserInfo]
-        public T UserInfo { get; set; } = (T)Activator.CreateInstance(typeof(T), new object[] { });
+        public virtual T UserInfo { get; set; } = (T)Activator.CreateInstance(typeof(T), new object[] { });
     }
 }

@@ -146,8 +146,8 @@ namespace WebAdmin.Services.Services
 
         public async Task<List<Project>> Get(ModelQuery model, User user)
         {
-           var projecrsId= user.Projects.Select(m => m.Id).ToList();
-            
+            var projecrsId = user.Projects.Select(m => m.Id).ToList();
+
             var projectList = _projects.Find(m => projecrsId.Contains(m.Id)).ToList();
             return projectList;
 

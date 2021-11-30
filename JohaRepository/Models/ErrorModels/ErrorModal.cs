@@ -8,13 +8,13 @@ namespace JohaRepository.Models.ErrorModels
     {
         public int Code { get; set; }
         public string ProjectId { get; set; }
-        public int HttpStatus { get; set; }
-        public string Message { get; set; }
-        public string Link { get; set; }
-        public string UzbText { get; set; }
+        public int HttpStatus { get; set; } = 400;
+        public string Message { get; set; } = "Comming soon Error";
+        public string Link { get; set; } = "Comming soon Error";
+        public string UzbText { get; set; } = "Comming soon Error";
 
-        public string RusText { get; set; }
-        public string EngText { get; set; }
+        public string RusText { get; set; } = "Comming soon Error";
+        public string EngText { get; set; } = "Comming soon Error";
 
     }
 }

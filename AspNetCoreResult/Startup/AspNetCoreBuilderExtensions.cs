@@ -64,7 +64,7 @@ namespace AspNetCoreResult.Startup
 
         private static void ChangeTime(object state)
         {
-            
+
         }
         private static void StartTimer()
         {

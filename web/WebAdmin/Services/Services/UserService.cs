@@ -134,7 +134,7 @@ namespace WebAdmin.Services.Services
 
         public User Get(string id)
         {
-           return _users.FindById(id);
+            return _users.FindById(id);
         }
     }
 }
