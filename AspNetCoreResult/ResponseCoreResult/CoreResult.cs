@@ -97,7 +97,7 @@ namespace AspNetCoreResult.ResponseCoreResult
                 var errorModal = ext.Code.GetError();
                 if (errorModal == null)
                 {
-                    errorModal = new ErrorModal();
+                    errorModal = new ErrorModal() { Message = ext.Message };
                 }
                 ParseErrorModal(errorModal);
             }

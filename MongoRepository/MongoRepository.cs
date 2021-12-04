@@ -54,7 +54,7 @@ namespace MongoRepository
                 model.Id = ObjectId.GenerateNewId().ToString();
             }
             EntityModelExtensions.Add(model);
-           
+
         }
 
         public virtual void AddRange(IEnumerable<T> models)

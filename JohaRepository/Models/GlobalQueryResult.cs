@@ -7,5 +7,6 @@ namespace JohaRepository.Models
         public int Count { get; set; }
         public List<T> Data { get; set; }
 
+
     }
 }

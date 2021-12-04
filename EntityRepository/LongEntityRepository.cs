@@ -25,15 +25,23 @@ namespace EntityRepository
 
         public virtual void Add(T model)
         {
-            _set.Add(model);
+            _set?.Add(model);
 
             _db.SaveChanges();
         }
 
         public virtual void AddRange(IEnumerable<T> models)
         {
-            _set.AddRange(models);
-            _db.SaveChanges();
+            try
+            {
+                _set.AddRange(models);
+                _db.SaveChanges();
+            }
+            catch(Exception ext)
+            {
+
+            }
+            
         }
 
         public virtual IQueryable<T> Find(Expression<Func<T, bool>> predicate)

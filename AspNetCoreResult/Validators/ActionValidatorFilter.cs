@@ -134,7 +134,15 @@ namespace AspNetCoreResult.Validators
                     if (d == 0) { }
                     return d;
 
-                default: return null;
+                default:
+                    try
+                    {
+                       return int.Parse(jwtValue);
+                    }catch(Exception ext)
+                    {
+                        return null;
+                    }
+                    
             }
         }
         public object JwtValue(ClaimsPrincipal claim, PropertyInfo prop, string jwtKey)
