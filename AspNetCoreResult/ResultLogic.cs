@@ -3,6 +3,7 @@
 using LiteDB;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 using System;
 using System.Net.Http;
@@ -11,6 +12,23 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreResult
 {
+    public class AddLog : ILoggerFactory
+    {
+        public void AddProvider(ILoggerProvider provider)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ILogger CreateLogger(string categoryName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+    }
     /// <summary>
     /// 
     /// </summary>

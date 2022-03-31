@@ -16,6 +16,7 @@
         {
             JwtKey = jwtKey;
             IsRequired = isRequired;
+            
 
         }
         public string JwtKey { get; set; }

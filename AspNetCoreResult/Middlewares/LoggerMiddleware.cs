@@ -1,4 +1,7 @@
-﻿using JohaRepository.Models;
+﻿using AspNetCoreResult.Startup;
+
+using JohaRepository.Interfaces;
+using JohaRepository.Models;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -17,8 +20,9 @@ namespace AspNetCoreResult.Middlewares
     public class LoggerMiddleware
     {
         private readonly RequestDelegate _next;
-        readonly ILogger<LoggerModel> _log;
-        public LoggerMiddleware(RequestDelegate next, ILogger<LoggerModel> log)
+        readonly IJohaLogger<LoggerModel> _log;
+
+        public LoggerMiddleware(RequestDelegate next, IJohaLogger<LoggerModel> log)
         {
             _next = next;
             _log = log;
@@ -71,12 +75,28 @@ namespace AspNetCoreResult.Middlewares
         public async Task InvokeAsync(HttpContext context)
         {
 
+
             LoggerModel model = new LoggerModel();
             model.UserName = context.User?.Identity?.Name;
             model.DateTime = DateTime.Now;
+            model.Path = context.Request.Path;
+            RouteMatching.CheckRoute(model.Path);
             await ParseRequest(context, model);
             await ParseResponse(context, model);
-            _log.LogInformation(JsonConvert.SerializeObject(model));
+            try
+            {
+                Task.Run(() =>
+                {
+                    Console.WriteLine(JsonConvert.SerializeObject(model));
+                    _log.AddLogger(model);
+                });
+            }
+            catch (Exception ext)
+            {
+                Console.WriteLine(ext.Message);
+            }
+
+
         }
 
 

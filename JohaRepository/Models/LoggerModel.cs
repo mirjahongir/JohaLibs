@@ -15,6 +15,7 @@ namespace JohaRepository.Models
         public int ResponseStatus { get; set; }
         public string Method { get; set; }
         public string ErrorText { get; set; }
+        public string Path { get; set; }
         public void ParseError(Exception ext)
         {
             ErrorText = ext.Message;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JohaRepository.Enums;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -17,8 +19,6 @@ namespace JohaRepository.Interfaces
         T Remove(TKey id);
         void RemoveRange(IEnumerable<T> models);
         void Update(T model);
-
-
-
     }
+  
 }

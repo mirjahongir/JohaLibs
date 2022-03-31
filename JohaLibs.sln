@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JohaRepository", "JohaRepository\JohaRepository.csproj", "{F3F867E2-5332-414C-B0E8-8D718ACD91E5}"
 EndProject
@@ -22,7 +22,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoRepository", "MongoRep
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisRepository", "RedisRepository\RedisRepository.csproj", "{6033D766-8AD4-4F09-A435-F667E599EE05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityRepository", "EntityRepository\EntityRepository.csproj", "{606FBFCB-9B3E-4171-B49D-4150A57B1557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityRepository", "EntityRepository\EntityRepository.csproj", "{606FBFCB-9B3E-4171-B49D-4150A57B1557}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logger", "Logger", "{BF28DB5A-C351-4C31-9E4E-1FC78B11F979}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramNotifier", "TelegramNotifier\TelegramNotifier.csproj", "{EC4DBA44-9CA1-4596-9777-3F146A60C6C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JohaMongoLogger", "JohaMongoLogger\JohaMongoLogger.csproj", "{B7017AFF-BE6B-41B9-9B13-6A2EA5DB93AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{AEFE393B-719C-400F-8772-0A37812C8D6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspTest", "Test\AspTest\AspTest.csproj", "{3376A8C4-D3CA-46A6-82CB-02B474A85203}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +64,18 @@ Global
 		{606FBFCB-9B3E-4171-B49D-4150A57B1557}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{606FBFCB-9B3E-4171-B49D-4150A57B1557}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{606FBFCB-9B3E-4171-B49D-4150A57B1557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC4DBA44-9CA1-4596-9777-3F146A60C6C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4DBA44-9CA1-4596-9777-3F146A60C6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4DBA44-9CA1-4596-9777-3F146A60C6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC4DBA44-9CA1-4596-9777-3F146A60C6C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7017AFF-BE6B-41B9-9B13-6A2EA5DB93AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7017AFF-BE6B-41B9-9B13-6A2EA5DB93AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7017AFF-BE6B-41B9-9B13-6A2EA5DB93AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7017AFF-BE6B-41B9-9B13-6A2EA5DB93AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3376A8C4-D3CA-46A6-82CB-02B474A85203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3376A8C4-D3CA-46A6-82CB-02B474A85203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3376A8C4-D3CA-46A6-82CB-02B474A85203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3376A8C4-D3CA-46A6-82CB-02B474A85203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +85,8 @@ Global
 		{78797383-334D-458F-8512-2FD41D8C630E} = {A755554E-3857-4FC3-A903-B73A649B3734}
 		{6033D766-8AD4-4F09-A435-F667E599EE05} = {A755554E-3857-4FC3-A903-B73A649B3734}
 		{606FBFCB-9B3E-4171-B49D-4150A57B1557} = {A755554E-3857-4FC3-A903-B73A649B3734}
+		{B7017AFF-BE6B-41B9-9B13-6A2EA5DB93AD} = {BF28DB5A-C351-4C31-9E4E-1FC78B11F979}
+		{3376A8C4-D3CA-46A6-82CB-02B474A85203} = {AEFE393B-719C-400F-8772-0A37812C8D6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7823A1C4-9725-485B-83E9-B0731F06CF0A}

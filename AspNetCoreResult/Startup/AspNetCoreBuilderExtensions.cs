@@ -73,7 +73,5 @@ namespace AspNetCoreResult.Startup
             Timer timer = new Timer(callback, null, 0, 100000);
         }
 
-
     }
-
 }
